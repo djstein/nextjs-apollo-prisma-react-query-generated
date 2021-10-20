@@ -1,0 +1,15 @@
+overwrite: true
+schema: generated/schema.graphql
+documents: ["documents/*.graphql"]
+generates:
+  generated/sdk.ts:
+    plugins:
+      - add:
+          content: "import { endpointUrl, fetchParams } from './../lib/fetch-config';"
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher:
+        endpoint: "endpointUrl"
+        fetchParams: "fetchParams"

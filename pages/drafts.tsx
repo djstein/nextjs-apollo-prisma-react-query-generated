@@ -1,13 +1,12 @@
 import Layout from "../components/Layout"
 import Link from "next/link"
-
-import { Post, useFeedQueryQuery } from "../generated/sdk"
+import { Post, useDraftsQueryQuery } from "../generated/sdk"
 
 const PostListItem = ({ post }: { post: Post }): JSX.Element => (
   <Link href="/p/[id]" as={`/p/${post.id}`}>
     <a>
       <h2>{post.title}</h2>
-      <small>By {post?.author?.name}</small>
+      <small>By {post.author ? post.author.name : "Unknown Author"}</small>
       <p>{post.content}</p>
       <style jsx>{`
         a {
@@ -21,10 +20,10 @@ const PostListItem = ({ post }: { post: Post }): JSX.Element => (
   </Link>
 )
 
-const Blog = (): JSX.Element => {
-  const { data, isFetching } = useFeedQueryQuery({})
+const Drafts = () => {
+  const { data, isLoading } = useDraftsQueryQuery()
 
-  if (isFetching) {
+  if (isLoading) {
     return <div>Loading ...</div>
   }
 
@@ -32,9 +31,9 @@ const Blog = (): JSX.Element => {
     <Layout>
       <>
         <div className="page">
-          <h1>My Blog</h1>
+          <h1>Drafts</h1>
           <main>
-            {data?.feed?.map(post => (
+            {data?.drafts?.map(post => (
               <div key={post?.id} className="post">
                 <PostListItem post={post} />
               </div>
@@ -60,4 +59,4 @@ const Blog = (): JSX.Element => {
   )
 }
 
-export default Blog
+export default Drafts

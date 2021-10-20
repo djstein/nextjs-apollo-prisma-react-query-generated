@@ -1,0 +1,13 @@
+type User {
+  id: Int
+  name: String
+  email: String
+}
+
+mutation SignupMutation($name: String, $email: String!) {
+  signupUser(name: $name, email: $email) {
+    id
+    name
+    email
+  }
+}

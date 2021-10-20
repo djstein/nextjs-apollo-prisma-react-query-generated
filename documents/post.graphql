@@ -1,0 +1,89 @@
+type Post {
+  id: Int
+  title: String
+  content: String
+  published: String
+  author: User
+}
+
+query PostQuery($postId: String!) {
+  post(postId: $postId) {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+    }
+  }
+}
+
+mutation PublishMutation($postId: String!) {
+  publish(postId: $postId) {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+    }
+  }
+}
+
+mutation DeleteMutation($postId: String!) {
+  deletePost(postId: $postId) {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+    }
+  }
+}
+
+mutation CreateDraftMutation(
+  $title: String!
+  $content: String
+  $authorEmail: String!
+) {
+  createDraft(title: $title, content: $content, authorEmail: $authorEmail) {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+    }
+  }
+}
+
+query DraftsQuery {
+  drafts {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+    }
+  }
+}
+
+query FeedQuery {
+  feed {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+    }
+  }
+}
